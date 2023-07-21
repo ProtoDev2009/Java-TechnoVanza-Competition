@@ -1,13 +1,16 @@
 package com.protodev.technovanza;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame{
     GameFrame(){
-        this.add(new GamePanel());
-        this.setResizable(false);
-        this.setVisible(true);
-        this.pack();
-        this.setLocationRelativeTo(null);
+        GamePanel panel = new GamePanel();
+        panel.setLocation(0,0);
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setVisible(true);
+        this.add(panel);
+        
+        addKeyListener(new KeyChecker(panel));
     }
 }
