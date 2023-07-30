@@ -8,10 +8,12 @@ class Player {
     int x, y;
     int width, height;
     
-    double xSpeed, ySpeed;
+    boolean hasPlayerReached = false;
     
-    boolean keyUp, keyDown, keyLeft, keyRight;
-    Rectangle hitBox;
+    double xSpeed, ySpeed;// keeping check of player's location
+    Rectangle hitBox;// name of the player
+    
+    boolean keyUp , keyDown, keyLeft, keyRight; // all the keys required for the project
     
     public Player(int x, int y, GamePanel panel){
         this.panel = panel;
@@ -24,13 +26,15 @@ class Player {
     }
     
     public void set(){
-        if(keyLeft && keyRight || !keyLeft && !keyRight) x *= 1;
+        if(!hasPlayerReached){
+            if(keyLeft && keyRight || !keyLeft && !keyRight) x *= 1;
         else if (keyLeft && !keyRight) x -= 5;
         else if (keyRight && !keyLeft) x += 5;
         
         if(keyUp){
+            
             hitBox.y++;
-            for(Wall wall:panel.walls) {
+            for(Wall wall:panel.walls){
                 if(wall.hitBox.intersects(hitBox)) ySpeed = -4;
             }
             hitBox.y--;
@@ -40,7 +44,7 @@ class Player {
         
         ySpeed += 0.3;
         
-        //Horizontal Collision
+        // horizontal collision
         hitBox.x += xSpeed;
         for(Wall wall: panel.walls){
             if(hitBox.intersects(wall.hitBox)){
@@ -52,7 +56,7 @@ class Player {
             }
         }
         
-        //Vertical Collision
+        // vertical collision
         hitBox.y += ySpeed;
         for(Wall wall: panel.walls){
             if(hitBox.intersects(wall.hitBox)){
@@ -67,12 +71,23 @@ class Player {
         x += xSpeed;
         y += ySpeed;
         
+        //Collision with ball
+        if(hitBox.x == panel.ball1x && hitBox.y == panel.ball1y){
+            panel.hasPlayerCleared = true;
+            hasPlayerReached = true;
+            System.out.println("Player Reached");
+        }
+        
         hitBox.x = x;
         hitBox.y = y;
+        }
+        else {
+            x = panel.ball1x + 100;
+        }
     }
     
     public void draw(Graphics2D gtd){
-        gtd.setColor(Color.DARK_GRAY);
+        gtd.setColor(new Color(226,49,75,255));
         gtd.fillRect(x, y, width, height);
     }
 }

@@ -4,13 +4,18 @@ import java.awt.Color;
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame{
-    GameFrame(){
-        GamePanel panel = new GamePanel();
+    GamePanel panel;
+    int height = 1280;
+    int width = 1000;  
+    
+    public GameFrame(){
+        panel = new GamePanel();
         panel.setLocation(0,0);
-        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setSize(width,height);
+        panel.setBackground(new Color(254,214,193,255));
         panel.setVisible(true);
-        this.add(panel);
-        
+        panel.add(panel.gameStatus);
+        panel.add(panel.motivate);
         addKeyListener(new KeyChecker(panel));
-    }
+    }  
 }

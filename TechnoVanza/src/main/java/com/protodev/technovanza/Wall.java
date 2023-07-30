@@ -7,7 +7,7 @@ public class Wall {
     int x, y;
     int width, height;
     
-    Rectangle hitBox;
+    Rectangle hitBox;// wall
     
     public Wall(int x, int y, int width, int height){
         this.x = x;
@@ -16,12 +16,11 @@ public class Wall {
         this.height = height;
         
         hitBox = new Rectangle(x, y, width, height);
+        
     }
     
     public void draw(Graphics2D gtd){
-        gtd.setColor(Color.DARK_GRAY);
-        gtd.drawRect(x, y, width, height);
-        gtd.setColor(Color.WHITE);
-        gtd.fillRect(x + 1, y + 1, width -2, height -2);
+        gtd.setColor(new Color(255,119,76,255));
+        gtd.fillRect(x + 1, y + 1, width - 2, height - 2);
     }
 }
